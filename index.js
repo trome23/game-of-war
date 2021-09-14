@@ -1,6 +1,7 @@
 const newDeckBtn = document.querySelector('#new-deck-btn')
 const drawBtn = document.querySelector('#draw-btn')
-const cardsContainer = document.querySelector('.cards-container')
+const cards = document.querySelector('.cards')
+
 let deckId
 
 const newDeck = () => {
@@ -12,20 +13,22 @@ const newDeck = () => {
         })
 }
 
-const handleDraw = () => {
+const drawCard = () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            let cardImage = `<img src=${data.cards[0].image}>
-                <img src= ${data.cards[1].image}>
-                `
-            cardsContainer.innerHTML = cardImage
+            cards.children[0].innerHTML = `
+                <img class="card-image" src=${data.cards[0].image}>
+            `   
+            cards.children[1].innerHTML = `
+                <img class="card-image" src=${data.cards[1].image}>
+            `   
         })
 }
 
 newDeckBtn.addEventListener('click', newDeck)
-drawBtn.addEventListener('click', handleDraw)
+drawBtn.addEventListener('click', drawCard)
 
 
 
