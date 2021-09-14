@@ -1,11 +1,33 @@
 const newDeckBtn = document.querySelector('#new-deck-btn')
+const drawBtn = document.querySelector('#draw-btn')
+const cardsContainer = document.querySelector('.cards-container')
+let deckId
 
-const handleClick = () => {
-    fetch('https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/?deck_count=1')
+const newDeck = () => {
+    fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data)
+            deckId = data.deck_id
+        })
 }
 
-newDeckBtn.addEventListener('click', handleClick)
+const handleDraw = () => {
+    fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            let cardImage = `<img src=${data.cards[0].image}>
+                <img src= ${data.cards[1].image}>
+                `
+            cardsContainer.innerHTML = cardImage
+        })
+}
+
+newDeckBtn.addEventListener('click', newDeck)
+drawBtn.addEventListener('click', handleDraw)
+
+
+
 
 
