@@ -2,7 +2,7 @@ const newDeckBtn = document.querySelector('#new-deck-btn')
 const drawBtn = document.querySelector('#draw-btn')
 const cards = document.querySelector('.cards')
 const winnerTitle = document.querySelector('#winner-title')
-
+const remainingHeader = document.querySelector("#remaining-header")
 let deckId
 
 //function to GET a new deck from 'deckofcards' API with same id #
@@ -19,6 +19,7 @@ const drawCard = () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)  //<== using template strings for GET to add deckId of new deck
         .then(res => res.json())
         .then(data => {
+            remainingHeader.textContent = `Remaining Cards: ${data.remaining}`;
             //using template strings to create image element and insert drawn cards into respective outlines//
             cards.children[0].innerHTML = `
                 <img class="card-image" src=${data.cards[0].image}>  
@@ -44,7 +45,7 @@ const whoWins = (card1, card2) => {
     } else if (card2Value > card1Value) {
         return "You WIN! 🏆";
     } else {
-        return "It's WAR ⚔️";
+        return "It's WAR! ⚔️";
     }
 }
 
