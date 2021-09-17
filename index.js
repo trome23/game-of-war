@@ -12,7 +12,11 @@ const newDeck = () => {
         .then(data => {
             deckId = data.deck_id
             remainingHeader.textContent = `Remaining Cards: ${data.remaining}`;
-
+            if(data.remaining === 0) {
+                drawBtn.disabled = true
+            } else {
+                drawBtn.disabled = false
+            }
         })
 }
 
@@ -31,6 +35,9 @@ const drawCard = () => {
             `
             let winnerText = whoWins(data.cards[0], data.cards[1])   
             winnerTitle.textContent = winnerText
+            if(data.remaining === 0) {
+                drawBtn.disabled = true
+            }            
         })
 }
 
