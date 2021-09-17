@@ -11,6 +11,8 @@ const newDeck = () => {
         .then(res => res.json())
         .then(data => {
             deckId = data.deck_id
+            remainingHeader.textContent = `Remaining Cards: ${data.remaining}`;
+
         })
 }
 
