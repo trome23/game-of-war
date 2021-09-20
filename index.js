@@ -3,9 +3,16 @@ const drawBtn = document.querySelector('#draw-btn')
 const cards = document.querySelector('.cards')
 const winnerTitle = document.querySelector('#winner-title')
 const remainingHeader = document.querySelector("#remaining-header")
+const computerScoreBoard = document.querySelector("#computer-scoreboard")
+const yourScoreBoard = document.querySelector("#your-scoreboard")
+const computerTotalScoreBoard = document.querySelector("#computer-total")
+const yourTotalScoreBoard = document.querySelector("#your-total")
+let computerScore = 0
+let yourScore = 0
+let totalScore = 0
 let deckId
 
-//function to GET a new deck from 'deckofcards' API with same id #
+//function to GET a new deck, with same id #, from 'deckofcards' API 
 const newDeck = () => {
     fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
         .then(res => res.json())
@@ -50,11 +57,15 @@ const whoWins = (card1, card2) => {
     const card2Value = cardValues.indexOf(card2.value)
     //simple if/else statement to determine winner
     if (card1Value > card2Value) {
+        computerScore++
+        computerScoreBoard.textContent = `Computer score: ${computerScore}`
         return "Computer WINS 😭";
     } else if (card2Value > card1Value) {
-        return "You WIN! 🏆";
+        yourScore++
+        yourScoreBoard.textContent = `Your Score: ${yourScore}`
+        return "You WIN! 🏆"
     } else {
-        return "It's WAR! ⚔️";
+        return "It's WAR! ⚔️"
     }
 }
 
@@ -62,12 +73,5 @@ const whoWins = (card1, card2) => {
 newDeckBtn.addEventListener('click', newDeck)
 drawBtn.addEventListener('click', drawCard)
 
-// let card1Obj = {
-//     value: "JACK"
-// }
-// let card2Obj = {
-//     value: "3"
-// }
 
-// whoWins(card1Obj, card2Obj)
 

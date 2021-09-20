@@ -43,7 +43,7 @@ button {
 }
 
 .card-outline:nth-of-type(1) {
-    margin-bottom: 3em;
+    margin-bottom: 1em;
 }
 
 .card-image {
@@ -58,6 +58,13 @@ button {
 
 .header-section > p {
     margin: 0 0 0 .75em;
-    
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+h2 {
+    margin-top: 0;
 }
 
