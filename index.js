@@ -5,11 +5,8 @@ const winnerTitle = document.querySelector('#winner-title')
 const remainingHeader = document.querySelector("#remaining-header")
 const computerScoreBoard = document.querySelector("#computer-scoreboard")
 const yourScoreBoard = document.querySelector("#your-scoreboard")
-const computerTotalScoreBoard = document.querySelector("#computer-total")
-const yourTotalScoreBoard = document.querySelector("#your-total")
 let computerScore = 0
 let yourScore = 0
-let totalScore = 0
 let deckId
 
 //function to GET a new deck, with same id #, from 'deckofcards' API 
@@ -44,6 +41,13 @@ const drawCard = () => {
             winnerTitle.textContent = winnerText
             if(data.remaining === 0) {
                 drawBtn.disabled = true
+                if (computerScore > yourScore) {
+                    winnerTitle.textContent = "Computer WIN the game!"
+                } else if (yourScore > computerScore) {
+                    winnerTitle.textContent = "You WIN the game!"
+                } else {
+                    winnerTitle.textContent = "It's a TIE game!"
+                }
             }            
         })
 }
@@ -67,6 +71,7 @@ const whoWins = (card1, card2) => {
     } else {
         return "It's WAR! ⚔️"
     }
+    
 }
 
 //Event listeners for draw and shuffle buttons
